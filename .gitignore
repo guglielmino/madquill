@@ -1,0 +1,52 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Xcode / Swift
+DerivedData/
+.build/
+.swiftpm/
+*.xcworkspace
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/*.xcworkspace
+*.xcodeproj/*.xcuserdatad/
+*.xcodeproj/*.xcscmblueprint
+*.xcodeproj/*.xccheckout
+
+# Build outputs
+build/
+*.app
+*.dmg
+*.zip
+*.xcarchive
+*.ipa
+*.pkg
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local secrets / signing
+*.p12
+*.pem
+*.mobileprovision
+*.entitlements
+.env
+.env.*
+
+# Generated release artifacts
+Release/
+Artifacts/
+releases/
