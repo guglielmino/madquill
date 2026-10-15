@@ -156,6 +156,7 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
             }
 
             var runAttributes = baseAttributes(for: context.kind)
+            applyListLayout(for: context, to: &runAttributes)
             applyInlineAttributes(from: attrs, to: &runAttributes)
             output.append(NSAttributedString(string: runText, attributes: runAttributes))
 
@@ -216,29 +217,33 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
         case .header(let level):
             switch level {
             case 1:
-                font = NSFont.systemFont(ofSize: 33, weight: .bold)
+                font = NSFont.systemFont(ofSize: 34, weight: .bold)
             case 2:
-                font = NSFont.systemFont(ofSize: 27, weight: .bold)
+                font = NSFont.systemFont(ofSize: 28, weight: .bold)
             case 3:
-                font = NSFont.systemFont(ofSize: 22, weight: .semibold)
+                font = NSFont.systemFont(ofSize: 23, weight: .semibold)
             default:
-                font = NSFont.systemFont(ofSize: 19, weight: .semibold)
+                font = NSFont.systemFont(ofSize: 20, weight: .semibold)
             }
-            paragraph.paragraphSpacingBefore = 10
+            paragraph.paragraphSpacingBefore = 12
+            paragraph.lineSpacing = 2
         case .codeBlock:
             font = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
-            paragraph.lineSpacing = 2
-            paragraph.paragraphSpacingBefore = 4
-            paragraph.firstLineHeadIndent = 14
-            paragraph.headIndent = 14
-            paragraph.tailIndent = -10
+            paragraph.lineSpacing = 3
+            paragraph.paragraphSpacingBefore = 8
+            paragraph.paragraphSpacing = 4
+            paragraph.firstLineHeadIndent = 12
+            paragraph.headIndent = 12
+            paragraph.tailIndent = -12
         case .blockQuote:
             font = NSFont.systemFont(ofSize: 15)
-            paragraph.firstLineHeadIndent = 14
-            paragraph.headIndent = 14
-            paragraph.tailIndent = -10
+            paragraph.firstLineHeadIndent = 16
+            paragraph.headIndent = 16
+            paragraph.tailIndent = -12
+            paragraph.paragraphSpacingBefore = 4
         case .paragraph, .thematicBreak:
             font = NSFont.systemFont(ofSize: 16)
+            paragraph.lineSpacing = 4
         }
 
         var attrs: [NSAttributedString.Key: Any] = [
@@ -248,13 +253,24 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
         ]
         switch kind {
         case .codeBlock:
-            attrs[.backgroundColor] = NSColor.textBackgroundColor.blended(withFraction: 0.08, of: .labelColor) ?? NSColor.textBackgroundColor
+            attrs[.backgroundColor] = NSColor.textBackgroundColor.blended(withFraction: 0.1, of: NSColor.secondaryLabelColor) ?? NSColor.textBackgroundColor
         case .blockQuote:
             attrs[.foregroundColor] = NSColor.secondaryLabelColor
         default:
             break
         }
         return attrs
+    }
+
+    private func applyListLayout(for context: BlockContext, to attributes: inout [NSAttributedString.Key: Any]) {
+        guard context.isUnorderedListItem || context.orderedOrdinal != nil,
+              let paragraph = (attributes[.paragraphStyle] as? NSParagraphStyle)?.mutableCopy() as? NSMutableParagraphStyle else {
+            return
+        }
+        paragraph.firstLineHeadIndent = 24
+        paragraph.headIndent = 24
+        paragraph.paragraphSpacingBefore = max(paragraph.paragraphSpacingBefore, 2)
+        attributes[.paragraphStyle] = paragraph
     }
 
     private func applyInlineAttributes(from source: [NSAttributedString.Key: Any], to target: inout [NSAttributedString.Key: Any]) {
@@ -266,8 +282,8 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
 
             if isCode {
                 target[.font] = NSFont.monospacedSystemFont(ofSize: 14, weight: .regular)
-                target[.foregroundColor] = NSColor.systemBlue
-                target[.backgroundColor] = NSColor.quaternaryLabelColor.withAlphaComponent(0.18)
+                target[.foregroundColor] = NSColor.labelColor
+                target[.backgroundColor] = NSColor.quaternaryLabelColor.withAlphaComponent(0.3)
             } else {
                 if isStrong, let font = target[.font] as? NSFont {
                     target[.font] = NSFontManager.shared.convert(font, toHaveTrait: .boldFontMask)
