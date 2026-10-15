@@ -1,5 +1,8 @@
 name: Release macOS app
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   push:

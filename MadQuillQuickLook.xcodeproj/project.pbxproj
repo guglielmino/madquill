@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		307FCE36141553AE84B439EC /* MadQuillApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB678EDDBDF1B80504CA1F2 /* MadQuillApp.swift */; };
-		69541CC4157FE670CB67BA81 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FA9D77731D5F7714A17AE7 /* PreviewProvider.swift */; };
 		838D291E9DDC9B2981A63C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203BF4F426A9C5349EEB405 /* ContentView.swift */; };
+		91166472C3B4FB5974D3EBEA /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDFBC1AA38FC484A2EC9E69 /* PreviewViewController.swift */; };
 		E5E418D3566C8393879F1203 /* MarkdownQuickLookExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 90505E2F122F5635DB2E138E /* MarkdownQuickLookExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -42,7 +42,7 @@
 		3C2ADD0A969AEE900165488A /* MadQuillApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadQuillApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90505E2F122F5635DB2E138E /* MarkdownQuickLookExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MarkdownQuickLookExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB678EDDBDF1B80504CA1F2 /* MadQuillApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadQuillApp.swift; sourceTree = "<group>"; };
-		E2FA9D77731D5F7714A17AE7 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
+		ABDFBC1AA38FC484A2EC9E69 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -58,7 +58,7 @@
 		A95E19403402AA1840EAD620 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E2FA9D77731D5F7714A17AE7 /* PreviewProvider.swift */,
+				ABDFBC1AA38FC484A2EC9E69 /* PreviewViewController.swift */,
 			);
 			name = Sources;
 			path = MarkdownQuickLookExtension/Sources;
@@ -130,6 +130,16 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					8517D985A2D68EE2A1B34DC4 = {
+						DevelopmentTeam = 52HSU26W4F;
+						ProvisioningStyle = Automatic;
+					};
+					944453163450235FD8D2FE5A = {
+						DevelopmentTeam = 52HSU26W4F;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 93B016E93E7DD81E40767F6A /* Build configuration list for PBXProject "MadQuillQuickLook" */;
 			developmentRegion = en;
@@ -165,7 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69541CC4157FE670CB67BA81 /* PreviewProvider.swift in Sources */,
+				91166472C3B4FB5974D3EBEA /* PreviewViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,8 +223,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 52HSU26W4F;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -235,7 +248,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.madquill;
+				PRODUCT_BUNDLE_IDENTIFIER = "it.little-endian.madquill";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -248,11 +261,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = MadQuillApp/MadQuillApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = BZ4JZEU4MY;
+				DEVELOPMENT_TEAM = 52HSU26W4F;
 				INFOPLIST_FILE = MadQuillApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -260,7 +272,6 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "it.little-endian.madquill";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -298,8 +309,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 52HSU26W4F;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -313,7 +327,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.madquill;
+				PRODUCT_BUNDLE_IDENTIFIER = "it.little-endian.madquill";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -325,7 +339,10 @@
 		B7BE049E27940FDD4E1B3D0C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MarkdownQuickLookExtension/MarkdownQuickLookExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 52HSU26W4F;
 				INFOPLIST_FILE = MarkdownQuickLookExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -333,6 +350,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "it.little-endian.madquill.MarkdownQuickLookExtension";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -340,7 +358,10 @@
 		DA179070F0C85D29CF51E1ED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MarkdownQuickLookExtension/MarkdownQuickLookExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 52HSU26W4F;
 				INFOPLIST_FILE = MarkdownQuickLookExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -348,6 +369,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "it.little-endian.madquill.MarkdownQuickLookExtension";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -356,11 +378,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = MadQuillApp/MadQuillApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = BZ4JZEU4MY;
+				DEVELOPMENT_TEAM = 52HSU26W4F;
 				INFOPLIST_FILE = MadQuillApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -368,7 +389,6 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "it.little-endian.madquill";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;

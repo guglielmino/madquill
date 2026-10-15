@@ -14,7 +14,7 @@ It is designed for developers who want a clean reference implementation of:
 
 - ✅ Finder Quick Look preview for Markdown content
 - ✅ Native rendering pipeline (no third-party Markdown engine)
-- ✅ Data-based Quick Look extension (`QLPreviewProvider`)
+- ✅ View-based Quick Look extension (`QLPreviewingController` + AppKit `NSTextView`)
 - ✅ File-size guardrail (prevents expensive previews on very large files)
 - ✅ UTF-8 validation and explicit error previews
 - ✅ Host app + embedded extension packaging pattern
@@ -102,7 +102,10 @@ In Xcode:
 4. Select your development team.
 5. Repeat for **MarkdownQuickLookExtension**.
 
-> Tip: Replace placeholder bundle IDs (`com.example.madquill`) with your own reverse-DNS identifiers before distributing.
+Current bundle identifiers are:
+
+- `it.little-endian.madquill`
+- `it.little-endian.madquill.MarkdownQuickLookExtension`
 
 ### 6) Build & run the host app
 
@@ -187,6 +190,13 @@ If your Markdown files are tagged with additional UTIs in your environment, add 
 ## Extension not used by Finder
 
 - Ensure host app has been run at least once after build.
+- Ensure the Quick Look extension is enabled in macOS settings:
+  - **System Settings → General → Login Items & Extensions → Extensions → Quick Look**
+  - Enable **MadQuill** if disabled.
+- Verify registration:
+  ```bash
+  pluginkit -m -A -D -p com.apple.quicklook.preview | grep -i little-endian
+  ```
 - Re-run:
   ```bash
   qlmanage -r
@@ -194,6 +204,13 @@ If your Markdown files are tagged with additional UTIs in your environment, add 
   ```
 - Restart Finder:
   ```bash
+  killall Finder
+  ```
+- If registration is still missing, force-register the extension and retry:
+  ```bash
+  pluginkit -a "/Applications/MadQuillApp.app/Contents/PlugIns/MarkdownQuickLookExtension.appex"
+  qlmanage -r
+  qlmanage -r cache
   killall Finder
   ```
 - Verify `QLSupportedContentTypes` values in extension `Info.plist`.
@@ -233,6 +250,29 @@ qlmanage -r cache
 
 This is the least confusing experience for users who are not familiar with extension internals.
 
+The release script creates a deterministic DMG that always contains:
+
+- the signed app bundle,
+- an `Applications` shortcut,
+- a visible `OPEN ME FIRST - LEGGIMI.txt` bilingual quick guide (EN/IT),
+- and an `INSTALL.txt` fallback guide.
+
+This avoids fragile Finder scripting and gives users a clear first-open experience.
+
+### GitHub Pages landing page and release artifact
+
+A lightweight landing page is available under [docs/index.html](./docs/index.html) and is designed to be hosted with GitHub Pages.
+
+The download CTA links directly to the release asset by name:
+
+```text
+https://github.com/guglielmino/madquill/releases/latest/download/MadQuill.dmg
+```
+
+This is the simplest pattern for user-facing downloads because the link remains stable and GitHub resolves it to the latest published release automatically.
+
+The release workflow uploads the DMG as a release asset and also exposes a GitHub Pages site for marketing and installation guidance. The Pages workflow is at [.github/workflows/pages.yml](./.github/workflows/pages.yml).
+
 ### Local packaging flow
 
 ```bash
@@ -240,6 +280,8 @@ chmod +x ./scripts/package_release.sh
 APPLE_DEVELOPER_IDENTITY="Developer ID Application: Your Name (TEAMID)" \
 ./scripts/package_release.sh release
 ```
+
+For local-only testing, you can still use an Apple Development identity, but GitHub/public distribution should use a **Developer ID Application** certificate.
 
 This script does the following:
 
@@ -325,4 +367,3 @@ Please keep contributions aligned with the core rule: **native Apple APIs only f
 ## License
 
 Add your preferred license file (for example MIT) before public release.
-

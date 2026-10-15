@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MadQuill — Markdown Quick Look for macOS</title>
+    <meta
+      name="description"
+      content="MadQuill is a native macOS Quick Look extension that renders Markdown files beautifully in Finder and on the desktop."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="container nav">
+          <div class="brand" aria-label="MadQuill home">
+            <span class="brand-mark">M</span>
+            <span>MadQuill</span>
+          </div>
+          <nav class="nav-links" aria-label="Main navigation">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#install">Install</a>
+            <a href="#releases">Releases</a>
+          </nav>
+          <a class="button button-primary small" href="https://github.com/guglielmino/madquill/releases/latest/download/MadQuill.dmg">Download</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="container hero-grid">
+            <div class="hero-copy">
+              <div class="eyebrow">Native macOS experience</div>
+              <h1>Preview Markdown like it belongs in Finder.</h1>
+              <p>
+                MadQuill adds a polished Quick Look experience for Markdown files, so you can read notes,
+                documentation, and project docs without leaving Finder.
+              </p>
+              <div class="cta-row">
+                <a class="button button-primary" href="https://github.com/guglielmino/madquill/releases/latest/download/MadQuill.dmg">Download macOS DMG</a>
+                <a class="button button-secondary" href="https://github.com/guglielmino/madquill">View source</a>
+              </div>
+              <ul class="quick-points" aria-label="MadQuill highlights">
+                <li>Instant Markdown previews</li>
+                <li>Open-source and lightweight</li>
+                <li>Built for Finder and Quick Look</li>
+              </ul>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+              <div class="preview-window">
+                <div class="window-chrome">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="preview-body">
+                  <div class="preview-header">README.md</div>
+                  <div class="preview-content">
+                    <h3>Project notes</h3>
+                    <p># Launch checklist</p>
+                    <p>• Ship the release build</p>
+                    <p>• Validate on macOS 12+</p>
+                    <p>• Share the DMG with users</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" class="section">
+          <div class="container">
+            <div class="section-heading">
+              <span class="eyebrow">Why use MadQuill</span>
+              <h2>Turn plain Markdown into a pleasant, native reading experience.</h2>
+            </div>
+            <div class="feature-grid">
+              <article class="feature-card">
+                <div class="feature-icon">✓</div>
+                <h3>Instant preview</h3>
+                <p>Open a Markdown file in Finder and press Space to see the rendered result without launching another app.</p>
+              </article>
+              <article class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast & lightweight</h3>
+                <p>Built to stay out of the way: quick render, low overhead, and a streamlined user experience.</p>
+              </article>
+              <article class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Enjoyable reading</h3>
+                <p>Clean HTML output keeps notes, reference docs, and changelogs readable in a modern, focused layout.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="how-it-works" class="section muted">
+          <div class="container narrow">
+            <div class="section-heading left">
+              <span class="eyebrow">How it works</span>
+              <h2>A native Quick Look extension for macOS.</h2>
+            </div>
+            <ol class="steps">
+              <li><span>1</span><div><h3>Install the app</h3><p>Download the signed DMG and drag MadQuill into Applications.</p></div></li>
+              <li><span>2</span><div><h3>Launch once</h3><p>The first launch registers the Quick Look extension and ensures macOS recognizes Markdown previews.</p></div></li>
+              <li><span>3</span><div><h3>Preview in Finder</h3><p>Select any Markdown file and use Quick Look for a clean rendered view.</p></div></li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="install" class="section">
+          <div class="container install-grid">
+            <div>
+              <span class="eyebrow">Installation</span>
+              <h2>Easy for first-time users.</h2>
+              <p>
+                Every release is packaged as a macOS DMG with a simple install flow: download, open the disk image,
+                drag the app into Applications, and launch it once to register the extension.
+              </p>
+            </div>
+            <div class="install-card">
+              <h3>Quick steps</h3>
+              <ol>
+                <li>Download the DMG from GitHub Releases.</li>
+                <li>Open the DMG and drag <strong>MadQuill.app</strong> to <strong>Applications</strong>.</li>
+                <li>Open the app once to finish registration.</li>
+                <li>Use Quick Look on any Markdown file in Finder.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section id="releases" class="section donate">
+          <div class="container center">
+            <span class="eyebrow">Download</span>
+            <h2>Get the latest signed DMG.</h2>
+            <p>Latest builds are published to GitHub Releases and linked directly from this page.</p>
+            <div class="cta-row center-row">
+              <a class="button button-primary" href="https://github.com/guglielmino/madquill/releases/latest/download/MadQuill.dmg">Download latest DMG</a>
+              <a class="button button-secondary" href="https://github.com/guglielmino/madquill/releases">See all releases</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div>© 2026 MadQuill</div>
+          <div>
+            <a href="https://github.com/guglielmino/madquill">GitHub</a>
+            <a href="https://github.com/guglielmino/madquill/releases">Releases</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

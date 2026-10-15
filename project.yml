@@ -6,12 +6,21 @@ options:
 settings:
   base:
     SWIFT_VERSION: 5.10
-    PRODUCT_BUNDLE_IDENTIFIER: com.example.madquill
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: "52HSU26W4F"
+    PRODUCT_BUNDLE_IDENTIFIER: it.little-endian.madquill
+    ENABLE_HARDENED_RUNTIME: YES
 targets:
   MadQuillApp:
     type: application
     platform: macOS
     deploymentTarget: "12.0"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: it.little-endian.madquill
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: "52HSU26W4F"
+        CODE_SIGN_ENTITLEMENTS: MadQuillApp/MadQuillApp.entitlements
     sources:
       - path: MadQuillApp/Sources
     info:
@@ -28,10 +37,24 @@ targets:
     type: app-extension
     platform: macOS
     deploymentTarget: "12.0"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: it.little-endian.madquill.MarkdownQuickLookExtension
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: "52HSU26W4F"
+        CODE_SIGN_ENTITLEMENTS: MarkdownQuickLookExtension/MarkdownQuickLookExtension.entitlements
     sources:
       - path: MarkdownQuickLookExtension/Sources
     info:
       path: MarkdownQuickLookExtension/Info.plist
+      properties:
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.quicklook.preview
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).PreviewViewController
+          NSExtensionAttributes:
+            QLSupportedContentTypes:
+              - public.markdown
+              - net.daringfireball.markdown
 schemes:
   MadQuillQuickLook:
     build:
