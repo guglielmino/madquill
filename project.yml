@@ -21,8 +21,11 @@ targets:
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: "52HSU26W4F"
         CODE_SIGN_ENTITLEMENTS: MadQuillApp/MadQuillApp.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     sources:
       - path: MadQuillApp/Sources
+      - path: MadQuillApp/Assets.xcassets
+        buildPhase: resources
     info:
       path: MadQuillApp/Info.plist
       properties:

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		307FCE36141553AE84B439EC /* MadQuillApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB678EDDBDF1B80504CA1F2 /* MadQuillApp.swift */; };
+		490D7A62B382560E5A32E842 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F0FFEF5EEC06F3ADAF7DB0F /* Assets.xcassets */; };
 		838D291E9DDC9B2981A63C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203BF4F426A9C5349EEB405 /* ContentView.swift */; };
 		91166472C3B4FB5974D3EBEA /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDFBC1AA38FC484A2EC9E69 /* PreviewViewController.swift */; };
 		E5E418D3566C8393879F1203 /* MarkdownQuickLookExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 90505E2F122F5635DB2E138E /* MarkdownQuickLookExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -38,6 +39,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F0FFEF5EEC06F3ADAF7DB0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2203BF4F426A9C5349EEB405 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3C2ADD0A969AEE900165488A /* MadQuillApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadQuillApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90505E2F122F5635DB2E138E /* MarkdownQuickLookExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MarkdownQuickLookExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,9 +66,18 @@
 			path = MarkdownQuickLookExtension/Sources;
 			sourceTree = "<group>";
 		};
+		A9E78FEC204D1F63A171EF5A /* MadQuillApp */ = {
+			isa = PBXGroup;
+			children = (
+				1F0FFEF5EEC06F3ADAF7DB0F /* Assets.xcassets */,
+			);
+			path = MadQuillApp;
+			sourceTree = "<group>";
+		};
 		C9DE504ABE8B19B9C8E49F4A = {
 			isa = PBXGroup;
 			children = (
+				A9E78FEC204D1F63A171EF5A /* MadQuillApp */,
 				FEAE29F9A892351FD6E8878D /* Sources */,
 				A95E19403402AA1840EAD620 /* Sources */,
 				1863D66D1868CC09B7A5D7C6 /* Products */,
@@ -108,6 +119,7 @@
 			buildConfigurationList = D93537F6D684BEEED02B7362 /* Build configuration list for PBXNativeTarget "MadQuillApp" */;
 			buildPhases = (
 				09A99F13CF8AD217E6D68F8A /* Sources */,
+				C2FBADD8C0826461B2F8BD9B /* Resources */,
 				2B7526EF14695E9FA6E00F15 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -160,6 +172,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C2FBADD8C0826461B2F8BD9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				490D7A62B382560E5A32E842 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		09A99F13CF8AD217E6D68F8A /* Sources */ = {

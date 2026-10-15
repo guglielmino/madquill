@@ -122,6 +122,7 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
             let attrs = semantic.attributes(at: index, effectiveRange: &range)
             let runText = text.substring(with: range)
             let context = blockContext(from: attrs, fallbackLocation: range.location)
+            let isNewBlock = context.key != lastBlockKey
 
             if case .thematicBreak = context.kind {
                 if output.length > 0 {
@@ -136,7 +137,42 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
                 continue
             }
 
-            let isNewBlock = context.key != lastBlockKey
+            if case .codeBlock(let language) = context.kind {
+                if isNewBlock && output.length > 0 {
+                    output.append(NSAttributedString(string: "\n\n"))
+                }
+                if isNewBlock, let language, !language.isEmpty {
+                    let label = language.uppercased()
+                    output.append(NSAttributedString(string: "\(label)\n", attributes: [
+                        .font: NSFont.monospacedSystemFont(ofSize: 11, weight: .semibold),
+                        .foregroundColor: NSColor.secondaryLabelColor
+                    ]))
+                }
+
+                var blockEnd = range.location + range.length
+                var scanIndex = blockEnd
+                while scanIndex < semantic.length {
+                    var nextRange = NSRange(location: 0, length: 0)
+                    let nextAttrs = semantic.attributes(at: scanIndex, effectiveRange: &nextRange)
+                    let nextContext = blockContext(from: nextAttrs, fallbackLocation: nextRange.location)
+                    guard nextContext.key == context.key else {
+                        break
+                    }
+                    blockEnd = nextRange.location + nextRange.length
+                    scanIndex = blockEnd
+                }
+
+                let blockRange = NSRange(location: range.location, length: blockEnd - range.location)
+                let blockText = text.substring(with: blockRange)
+                var blockAttributes = baseAttributes(for: context.kind)
+                applyListLayout(for: context, to: &blockAttributes)
+                output.append(NSAttributedString(string: blockText, attributes: blockAttributes))
+
+                lastBlockKey = context.key
+                index = blockEnd
+                continue
+            }
+
             if isNewBlock && output.length > 0 {
                 output.append(NSAttributedString(string: "\n\n"))
             }
@@ -253,7 +289,7 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
         ]
         switch kind {
         case .codeBlock:
-            attrs[.backgroundColor] = NSColor.textBackgroundColor.blended(withFraction: 0.1, of: NSColor.secondaryLabelColor) ?? NSColor.textBackgroundColor
+            attrs[.foregroundColor] = NSColor.textColor
         case .blockQuote:
             attrs[.foregroundColor] = NSColor.secondaryLabelColor
         default:
@@ -281,9 +317,9 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
             let isEmphasis = (raw & 1) != 0
 
             if isCode {
-                target[.font] = NSFont.monospacedSystemFont(ofSize: 14, weight: .regular)
-                target[.foregroundColor] = NSColor.labelColor
-                target[.backgroundColor] = NSColor.quaternaryLabelColor.withAlphaComponent(0.3)
+                target[.font] = NSFont.monospacedSystemFont(ofSize: 14, weight: .medium)
+                target[.foregroundColor] = NSColor.secondaryLabelColor
+                target.removeValue(forKey: .backgroundColor)
             } else {
                 if isStrong, let font = target[.font] as? NSFont {
                     target[.font] = NSFontManager.shared.convert(font, toHaveTrait: .boldFontMask)
