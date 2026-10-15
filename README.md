@@ -240,8 +240,9 @@ For a developer-facing GitHub release, the recommended delivery format is a **si
 
 1. Download the DMG from GitHub Releases.
 2. Open the DMG and drag the app into `/Applications`.
-3. Launch the app once to register the Quick Look extension.
-4. Refresh Quick Look caches if needed:
+3. Launch the app once and wait for the setup checks to complete (extension registration + Quick Look cache refresh).
+4. Close the app after setup; it can stay installed in `/Applications` as the extension host.
+5. If preview still does not appear, refresh Quick Look caches manually:
 
 ```bash
 qlmanage -r
