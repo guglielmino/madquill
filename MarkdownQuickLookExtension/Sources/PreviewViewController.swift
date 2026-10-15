@@ -27,6 +27,8 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
         case paragraph
         case header(level: Int)
         case thematicBreak
+        case codeBlock(language: String?)
+        case blockQuote
     }
 
     private struct BlockContext {
@@ -140,7 +142,13 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
             }
 
             if isNewBlock {
-                if let ordinal = context.orderedOrdinal {
+                if case .codeBlock(let language) = context.kind, let language, !language.isEmpty {
+                    let label = language.uppercased()
+                    output.append(NSAttributedString(string: "\(label)\n", attributes: [
+                        .font: NSFont.monospacedSystemFont(ofSize: 11, weight: .semibold),
+                        .foregroundColor: NSColor.secondaryLabelColor
+                    ]))
+                } else if let ordinal = context.orderedOrdinal {
                     output.append(NSAttributedString(string: "\(ordinal). ", attributes: baseAttributes(for: context.kind)))
                 } else if context.isUnorderedListItem {
                     output.append(NSAttributedString(string: "• ", attributes: baseAttributes(for: context.kind)))
@@ -174,6 +182,11 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
         let kind: BlockKind
         if firstLine.contains("Header"), let level = firstInt(in: firstLine, pattern: #"Header \(id \d+\) \((\d+)\)"#) {
             kind = .header(level: level)
+        } else if firstLine.contains("CodeBlock") {
+            let language = firstString(in: firstLine, pattern: #"CodeBlock \(id \d+\) \(([^)]*)\)"#)
+            kind = .codeBlock(language: language)
+        } else if firstLine.contains("BlockQuote") {
+            kind = .blockQuote
         } else if firstLine.contains("ThematicBreak") {
             kind = .thematicBreak
         } else {
@@ -211,15 +224,37 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
             default:
                 font = NSFont.systemFont(ofSize: 19, weight: .semibold)
             }
+            paragraph.paragraphSpacingBefore = 10
+        case .codeBlock:
+            font = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
+            paragraph.lineSpacing = 2
+            paragraph.paragraphSpacingBefore = 4
+            paragraph.firstLineHeadIndent = 14
+            paragraph.headIndent = 14
+            paragraph.tailIndent = -10
+        case .blockQuote:
+            font = NSFont.systemFont(ofSize: 15)
+            paragraph.firstLineHeadIndent = 14
+            paragraph.headIndent = 14
+            paragraph.tailIndent = -10
         case .paragraph, .thematicBreak:
             font = NSFont.systemFont(ofSize: 16)
         }
 
-        return [
+        var attrs: [NSAttributedString.Key: Any] = [
             .font: font,
             .foregroundColor: NSColor.labelColor,
             .paragraphStyle: paragraph
         ]
+        switch kind {
+        case .codeBlock:
+            attrs[.backgroundColor] = NSColor.textBackgroundColor.blended(withFraction: 0.08, of: .labelColor) ?? NSColor.textBackgroundColor
+        case .blockQuote:
+            attrs[.foregroundColor] = NSColor.secondaryLabelColor
+        default:
+            break
+        }
+        return attrs
     }
 
     private func applyInlineAttributes(from source: [NSAttributedString.Key: Any], to target: inout [NSAttributedString.Key: Any]) {
@@ -265,5 +300,19 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
             return nil
         }
         return Int(text[groupRange])
+    }
+
+    private func firstString(in text: String, pattern: String) -> String? {
+        guard let regex = try? NSRegularExpression(pattern: pattern) else {
+            return nil
+        }
+        let range = NSRange(text.startIndex..., in: text)
+        guard let match = regex.firstMatch(in: text, options: [], range: range),
+              match.numberOfRanges > 1,
+              let groupRange = Range(match.range(at: 1), in: text) else {
+            return nil
+        }
+        let value = String(text[groupRange]).trimmingCharacters(in: .whitespacesAndNewlines)
+        return value.isEmpty ? nil : value
     }
 }
