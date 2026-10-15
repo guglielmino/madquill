@@ -74,15 +74,12 @@ a {
   letter-spacing: -0.03em;
 }
 
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #7aa6ff, #97d8ff);
-  color: #09111f;
-  font-weight: 800;
+.brand-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .nav-links {
@@ -255,6 +252,15 @@ a {
 
 .preview-body {
   padding: 26px 24px 28px;
+}
+
+.hero-app-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 18px;
+  border: 1px solid var(--stroke);
+  margin-bottom: 18px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
 }
 
 .preview-header {
